@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>flex实战demo</title>
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0 1% 20px;
+				background-color: #666666;
+				box-sizing:border-box;
+				-moz-box-sizing:border-box; /* Firefox */
+				-webkit-box-sizing:border-box; /* Safari */
+			}
+			ul {margin: 0;padding: 0;}
+			.text {color: #FFFFFF;font-size: 20px;padding: 40px 0 5px;}
+			.a>li {list-style: none;margin-top: 10px;}
+			.title {color: #FFFFFF;padding-bottom: 3px;border-bottom: 1px solid #FFFFFF;margin-bottom: 5px;}
+			.demo {
+				display: flex;
+				display: -webkit-flex; /* 兼容chrome */
+			}
+			.demo>li {
+				width: 104px;
+				height: 104px;
+				margin: 16px;
+				padding: 4px;
+				margin-left: 2%;
+				background-color: #FFFFFF;
+				display: inline-block;
+				list-style: none;
+				border-radius: 10%;
+				box-shadow:
+					inset 0 5px white, 
+					inset 0 -5px #bbb,
+					inset 5px 0 #d7d7d7, 
+					inset -5px 0 #d7d7d7;
+			}
+			.demo>li:nth-child(1) {
+				margin-left: 0px!important;
+			}
+			.pip {
+			  display: block;
+			  width: 24px;
+			  height: 24px;
+			  border-radius: 50%;
+			  margin: 4px;
+			
+			  background-color: #333;
+			  box-shadow: inset 0 3px #111, inset 0 -3px #555;
+			}
+			.flex { /* 父容器 */
+				width: 100%;
+				height: 100%;
+				display: flex;
+				display: -webkit-flex; /* 兼容chrome */
+			}
+			
+			.layout {
+				display: flex;
+				display: -webkit-flex; /* 兼容chrome */
+				width: 100%;
+				background-color: #FFFFFF;
+				margin-top: 20px;
+			}
+			.layout>div{
+				background-color: #00FFFF;
+				border: 1px solid #666666;
+				padding: 10px 0;
+				text-align: center;
+				list-style: none;
+				flex: 1; /* 让所有弹性盒模型对象的子元素都有相同的长度，且忽略它们内部的内容 */
+			}
+			
+			.HolyGrail-body {
+			  display: flex;
+			  flex: 1;
+			}
+			.HolyGrail-content {
+			  flex: 1;
+			  padding: 10px 0;
+			  background-color: #D6D6D6;
+			  text-align: center;
+			}
+			.HolyGrail-nav, .HolyGrail-ads {
+			  /* 两个边栏的宽度设为12em */
+			  flex: 0 0 12em;
+			  padding: 10px 0;
+			  background-color: #FF6633;
+			  text-align: center;
+			}
+			.HolyGrail-nav {
+			  /* 导航放到最左边 */
+			  order: -1;
+			  padding: 10px 0;
+			  background-color: #77BBDD;
+			  text-align: center;
+			}
+			.HolyGrail-body.mobile {
+				flex-direction: column;
+				flex: 1;
+				width: 768px;
+			}
+			.HolyGrail-body.mobile>.HolyGrail-nav,
+			.HolyGrail-body.mobile>.HolyGrail-ads,
+			.HolyGrail-body.mobile>.HolyGrail-content {
+				flex: auto;
+			}
+			
+			.InputAddOn {
+			  display: flex;
+			}
+			.InputAddOn-item{
+				background-color: #F4F3F0;
+				padding: 6px 8px;
+			}
+			.InputAddOn-field {
+			  flex: 1;
+			}
+			
+			.Media {
+			  display: flex;
+			  align-items: flex-start;
+			}
+			.Media-figure {
+			  margin-right: 1em;
+			}
+			.Media-body {
+			  flex: 1;
+			}
+			
+			.site {
+			  display: flex;
+			  flex-direction: column;
+			  height: 200px;
+			  background-color: #FFFFFF;
+			}
+			.site-content{
+				flex: 1;
+				text-align: center;
+			}
+			.site>header{
+				height: 60px;
+				background-color: #00FFFF;
+				text-align: center;
+				line-height: 60px;
+			}
+			.site>footer{
+				height: 40px;
+				background-color: #00FFFF;
+				text-align: center;
+				line-height: 40px;
+			}
+			
+			.parent {
+			  width: 200px;
+			  height: 150px;
+			  background-color: black;
+			  display: flex;
+			  flex-flow: row wrap;
+			  align-content: flex-start;
+			}
+			.child {
+			  box-sizing: border-box;
+			  background-color: white;
+			  flex: 0 0 25%;
+			  height: 50px;
+			  border: 1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="text">本页面参考语法教程：<a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html" target="_blank" style="color: #FFFFFF;">http://www.ruanyifeng.com/blog/2015/07/flex-examples.html</a>编写相应demo</div>
+		<ul class="a">
+			<li>
+				<div class="title">单项目</div>
+				<ul class="demo">
+					<li style="display: flex;">
+						<div class="flex">
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="justify-content: center;">
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="justify-content: flex-end;">
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="align-items: center;">
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="align-items: center;justify-content: center;">
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="align-items: flex-end;justify-content: center;">
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="align-items: flex-end;justify-content: flex-end;">
+							<span class="pip"></span>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="title">双项目</div>
+				<ul class="demo">
+					<li>
+						<div class="flex" style="justify-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-direction: column;justify-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-direction: column;justify-content: space-between;align-items: center;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-direction: column;justify-content: space-between;align-items: flex-end;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex">
+							<span class="pip"></span>
+							<span class="pip" style="align-self: center;"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="justify-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip" style="align-self: flex-end;"></span>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="title">三项目</div>
+				<ul class="demo">
+					<li>
+						<div class="flex" style="justify-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip" style="align-self: center;"></span>
+							<span class="pip" style="align-self: flex-end;"></span>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="title">四项目</div>
+				<ul class="demo">
+					<li>
+						<div class="flex" style="flex-wrap: wrap;flex-direction: row-reverse;justify-content: space-between;align-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap;align-content: space-between;">
+							<div style="display: flex;flex-basis: 100%;justify-content: space-between;">
+								<span class="pip"></span>
+								<span class="pip"></span>
+							</div>
+							<div style="display: flex;flex-basis: 100%;justify-content: space-between;">
+								<span class="pip"></span>
+								<span class="pip"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="title">五项目</div>
+				<ul class="demo">
+					<li>
+						<div class="flex" style="flex-wrap: wrap;align-content: space-between;">
+							<div style="flex-basis: 100%;display: flex;justify-content: space-between;">
+								<span class="pip"></span>
+								<span class="pip"></span>
+							</div>
+							<div style="flex-basis: 100%;display: flex;justify-content: center;">
+								<span class="pip"></span>
+							</div>
+							<div style="flex-basis: 100%;display: flex;justify-content: space-between;">
+								<span class="pip"></span>
+								<span class="pip"></span>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap;justify-content: space-between;align-content: space-between;">
+							<div style="flex-basis: 100%;display: flex;justify-content: flex-end;">
+								<span class="pip"></span>
+							</div>
+							<div style="flex-basis: 100%;display: flex;justify-content: center;">
+								<span class="pip"></span>
+							</div>
+							<div style="flex-basis: 100%;display: flex;justify-content: space-between;">
+								<span class="pip"></span>
+								<span class="pip"></span>
+								<span class="pip"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="title">六项目</div>
+				<ul class="demo">
+					<li>
+						<div class="flex" style="flex-wrap: wrap;justify-content: space-between;align-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap;justify-content: space-between;align-content: space-between;flex-direction: column;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap;align-content: space-between;">
+							<div style="flex-basis: 100%;display: flex;">
+								<span class="pip"></span>
+								<span class="pip"></span>
+								<span class="pip"></span>
+							</div>
+							<div style="flex-basis: 100%;display: flex;justify-content: center;">
+								<span class="pip"></span>
+							</div>
+							<div style="flex-basis: 100%;display: flex;justify-content: space-between;">
+								<span class="pip"></span>
+								<span class="pip"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="title">七项目</div>
+				<ul class="demo">
+					<li>
+						<div class="flex" style="flex-wrap: wrap;justify-content: space-between;align-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap;justify-content: space-between;align-content: space-between;flex-direction: column-reverse;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap-reverse;justify-content: space-between;align-content: space-between;flex-direction: row-reverse;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap-reverse;justify-content: space-between;align-content: space-between;flex-direction: column;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="title">八项目</div>
+				<ul class="demo">
+					<li>
+						<div class="flex" style="flex-wrap: wrap;justify-content: space-between;align-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap;justify-content: space-between;align-content: space-between;flex-direction: column;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap-reverse;justify-content: space-between;align-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+					<li>
+						<div class="flex" style="flex-wrap: wrap-reverse;justify-content: space-between;align-content: space-between;flex-direction: column;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div class="title">九项目</div>
+				<ul class="demo">
+					<li>
+						<div class="flex" style="flex-wrap: wrap;justify-content: space-between;">
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+							<span class="pip"></span>
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<div class="text">网格布局</div>
+		<ul class="a">
+			<li>
+				<div class="title">在容器里面平均分配空间，但是需要设置项目的自动缩放</div>
+				<div class="layout">
+					<div>1/2</div>
+					<div>1/2</div>
+				</div>
+				<div class="layout">
+					<div>1/3</div>
+					<div>1/3</div>
+					<div>1/3</div>
+				</div>
+				<div class="layout">
+					<div>1/4</div>
+					<div>1/4</div>
+					<div>1/4</div>
+					<div>1/4</div>
+				</div>
+			</li>
+			<li>
+				<div class="title">某个网格的宽度为固定的百分比，其余网格平均分配剩余的空间</div>
+				<div class="layout">
+					<div style="flex: 0 0 50%;">1/2</div>
+					<div>auto</div>
+					<div>auto</div>
+				</div>
+				<div class="layout">
+					<div>auto</div>
+					<div style="flex: 0 0 33.3333%;">1/3</div>
+				</div>
+				<div class="layout">
+					<div style="flex: 0 0 25%;">1/4</div>
+					<div>auto</div>
+					<div style="flex: 0 0 33.3333%;">1/3</div>
+				</div>
+			</li>
+		</ul>
+		<div class="text">圣杯布局</div>
+		<ul class="a">
+			<li>
+				<div class="title">大屏幕</div>
+				<div class="HolyGrail-body">
+					<main class="HolyGrail-content">内容</main>
+					<nav class="HolyGrail-nav">导航</nav>
+					<aside class="HolyGrail-ads">广告</aside>
+				</div>
+			</li>
+			<li>
+				<div class="title">小屏幕</div>
+				<div class="HolyGrail-body mobile">
+					<main class="HolyGrail-content">内容</main>
+					<nav class="HolyGrail-nav">导航</nav>
+					<aside class="HolyGrail-ads">广告</aside>
+				</div>
+			</li>
+		</ul>
+		<div class="text">输入框布局</div>
+		<ul class="a">
+			<li>
+				<div class="InputAddOn">
+				  <span class="InputAddOn-item">icon</span>
+				  <input class="InputAddOn-field" />
+				  <button class="InputAddOn-item">Send</button>
+				</div>
+			</li>
+		</ul>
+		<div class="text">悬挂式布局</div>
+		<ul class="a">
+			<li>
+				<div class="Media">
+				  <img class="Media-figure" src="1.jpg" alt="" width="100">
+				  <p class="Media-body">文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字</p>
+				</div>
+			</li>
+		</ul>
+		<div class="text">固定底栏</div>
+		<ul class="a">
+			<li>
+				<div class="site">
+					<header>头部</header>
+					<main class="site-content">内容</main>
+					<footer>底部</footer>
+				</div>
+			</li>
+		</ul>
+		<div class="text">流式布局</div>
+		<ul class="a">
+			<li>
+				<div class="parent">
+					<div class="child"></div>
+					<div class="child"></div>
+					<div class="child"></div>
+					<div class="child"></div>
+					<div class="child"></div>
+					<div class="child"></div>
+					<div class="child"></div>
+					<div class="child"></div>
+					<div class="child"></div>
+					<div class="child"></div>
+				</div>
+			</li>
+		</ul>
+	</body>
+</html>
